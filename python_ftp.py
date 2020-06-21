@@ -1,6 +1,7 @@
+#!/usr/bin/python
 # coding=gbk
 """
-FTPå¸¸ç”¨æ“ä½œ
+FTP³£ÓÃ²Ù×÷
 """
 from ftplib import FTP
 import os
@@ -10,11 +11,11 @@ from tqdm import tqdm
 class FTP_OP:
     def __init__(self, host, username, password, port):
         """
-        åˆå§‹åŒ–ftp
-        :param host: ftpä¸»æœºip
-        :param username: ftpç”¨æˆ·å
-        :param password: ftpå¯†ç 
-        :param port:  ftpç«¯å£ ï¼ˆé»˜è®¤21ï¼‰
+        ³õÊ¼»¯ftp
+        :param host: ftpÖ÷»úip
+        :param username: ftpÓÃ»§Ãû
+        :param password: ftpÃÜÂë
+        :param port:  ftp¶Ë¿Ú £¨Ä¬ÈÏ21£©
         """
         self.host = host
         self.username = username
@@ -23,28 +24,28 @@ class FTP_OP:
 
     def ftp_connect(self):
         """
-        è¿æ¥ftp
+        Á¬½Óftp
         :return:
         """
         ftp = FTP()
-        ftp.set_debuglevel(0)  # ä¸å¼€å¯è°ƒè¯•æ¨¡å¼
-        ftp.connect(host=self.host, port=self.port)  # è¿æ¥ftp
-        ftp.login(self.username, self.password)  # ç™»å½•ftp
+        ftp.set_debuglevel(0)  # ²»¿ªÆôµ÷ÊÔÄ£Ê½
+        ftp.connect(host=self.host, port=self.port)  # Á¬½Óftp
+        ftp.login(self.username, self.password)  # µÇÂ¼ftp
         return ftp
 
     def download_file(self, ftp_file_path, dst_file_path):
         """
-        ä»ftpä¸‹è½½æ–‡ä»¶åˆ°æœ¬åœ°
-        :param ftp_file_path: ftpä¸‹è½½æ–‡ä»¶è·¯å¾„
-        :param dst_file_path: æœ¬åœ°å­˜æ”¾è·¯å¾„
+        ´ÓftpÏÂÔØÎÄ¼şµ½±¾µØ
+        :param ftp_file_path: ftpÏÂÔØÎÄ¼şÂ·¾¶
+        :param dst_file_path: ±¾µØ´æ·ÅÂ·¾¶
         :return:
         """
         if not os.path.isdir(dst_file_path):
             os.makedirs(dst_file_path)
 
-        buffer_size = 10240  #é»˜è®¤æ˜¯8192
+        buffer_size = 10240  #Ä¬ÈÏÊÇ8192
         ftp = self.ftp_connect()
-        print ftp.getwelcome()  #æ˜¾ç¤ºç™»å½•ftpä¿¡æ¯
+        print ftp.getwelcome()  #ÏÔÊ¾µÇÂ¼ftpĞÅÏ¢
         file_list = ftp.nlst(ftp_file_path)
         # print dst_file_path
         # print file_list
@@ -63,12 +64,11 @@ class FTP_OP:
         ftp.quit()
 
 if __name__ == '__main__':
-    host = "192.168.0.1"
-    username = "root"
-    password = "Asdfasdf911007"
+    host = "192.168.0.100"
+    username = "***"
+    password = "***"
     port = "21"
     ftp_file_path = "/home/pic/"
-    dst_file_path = "F:/ftp_sync/cellphone/"
+    dst_file_path = "F:/pic/"
     ftp = FTP_OP(host=host, username=username, password=password, port=port)
     ftp.download_file(ftp_file_path=ftp_file_path, dst_file_path=dst_file_path)
-
